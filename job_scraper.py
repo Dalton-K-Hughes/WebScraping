@@ -60,7 +60,11 @@ print(f'Num jobcards: {len(job_cards)}')
 for job_card in job_cards:
     try:
         title = job_card.find_element(By.XPATH, './/span[starts-with(@id, "jobTitle-")]')
+        company = job_card.find_element(By.XPATH, './/span[@data-testid="company-name"]')
+        location = job_card.find_element(By.XPATH, './/div[@data-testid="text-location"]')
         print(title.text)
+        print(company.text)
+        print(location.text)
         print()
     except NoSuchElementException:
         continue

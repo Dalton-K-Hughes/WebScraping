@@ -3,7 +3,7 @@ import os
 from random import randint, choice
 from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -22,6 +22,14 @@ file_url = f'file://{abs_path}'
 browser.get(file_url)
 time.sleep(randint(2, 4)) # Let the user actually see something!
 
+ul = browser.find_element(By.XPATH, '//div[@id="MosaicProviderRichSearchDaemon"]')
+filter_options = ul.find_elements(By.XPATH, './/div//div//div//ul[@class="eu4oa1w0"]')
+for filter in filter_options:
+    try:
+        button = filter.find_element(By.TAG_NAME, 'button').click()
+    except ElementNotInteractableException:
+        continue
+    time.sleep(1)
 # try:
 #     job_searchbox = browser.find_element(By.XPATH, "//input[@name='q']")
 #     job_searchbox.send_keys('it')
@@ -55,19 +63,19 @@ time.sleep(randint(2, 4)) # Let the user actually see something!
 #     submit_btn.click()
     
 # time.sleep(randint(1, 2))
-job_cards = browser.find_elements(By.CLASS_NAME, 'css-1ac2h1w')
-print(f'Num jobcards: {len(job_cards)}')
-for job_card in job_cards:
-    try:
-        title = job_card.find_element(By.XPATH, './/span[starts-with(@id, "jobTitle-")]')
-        company = job_card.find_element(By.XPATH, './/span[@data-testid="company-name"]')
-        location = job_card.find_element(By.XPATH, './/div[@data-testid="text-location"]')
-        print(title.text)
-        print(company.text)
-        print(location.text)
-        print()
-    except NoSuchElementException:
-        continue
+# job_cards = browser.find_elements(By.CLASS_NAME, 'css-1ac2h1w')
+# print(f'Num jobcards: {len(job_cards)}')
+# for job_card in job_cards:
+#     try:
+#         title = job_card.find_element(By.XPATH, './/span[starts-with(@id, "jobTitle-")]')
+#         company = job_card.find_element(By.XPATH, './/span[@data-testid="company-name"]')
+#         location = job_card.find_element(By.XPATH, './/div[@data-testid="text-location"]')
+#         print(title.text)
+#         print(company.text)
+#         print(location.text)
+#         print()
+#     except NoSuchElementException:
+#         continue
     
 time.sleep(5)
 

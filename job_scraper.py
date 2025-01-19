@@ -22,6 +22,13 @@ file_url = f'file://{abs_path}'
 browser.get(file_url)
 time.sleep(randint(2, 4)) # Let the user actually see something!
 
+# Get the list of the page btns at the buttom of the page and click the btn to go to the next page
+page_btns = browser.find_elements(By.XPATH, '//ul[contains(@class, "css-1g90gv6")]//li[contains(@class, "css-227srf")]')
+time.sleep(3)
+page_btns[-1].click()
+
+
+# Trying to find a way to to select all the filter options for the page
 ul = browser.find_element(By.XPATH, '//div[@id="MosaicProviderRichSearchDaemon"]')
 filter_options = ul.find_elements(By.XPATH, './/div//div//div//ul[@class="eu4oa1w0"]')
 for filter in filter_options:

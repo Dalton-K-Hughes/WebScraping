@@ -9,6 +9,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import re
 
+# TODO: Create Classes for Indeed, LinkedIn, etc. to scrape each site
+# TODO: Get all the filter options to let me choose how to filter each job search
+# TODO: Export all found jobs to a csv file
+# TODO: Find way to find the link to apply to each job based on filtered options
+
+
 # PROXIES = ['<50.96.204.48>:<18351>', '<207.55.243.42>:<64403>', '<194.36.98.231>:<80>', '<192.64.115.90>:<25462>', '<50.251.146.121>:<5678>']
 
 options = webdriver.ChromeOptions()  # Optional argument, if not specified will search path.
@@ -22,7 +28,7 @@ file_url = f'file://{abs_path}'
 browser.get(file_url)
 time.sleep(randint(2, 4)) # Let the user actually see something!
 
-# Get the list of the page btns at the buttom of the page and click the btn to go to the next page
+# Get the list of the page btns at the buttom of the page and click the last btn to go to the next page
 page_btns = browser.find_elements(By.XPATH, '//ul[contains(@class, "css-1g90gv6")]//li[contains(@class, "css-227srf")]')
 time.sleep(3)
 page_btns[-1].click()

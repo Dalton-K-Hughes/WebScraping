@@ -8,12 +8,23 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import re
+from fake_useragent import UserAgent
 
 # Class used to create a object to represent a Indeed Web Scrapper with Google Chrome's webdriver
 class Indeed_Scrapper:
     def __init__(self):
         options = webdriver.ChromeOptions()
         options.add_experimental_option('detach', True)
+        options.add_argument('--incognito')
+        
+        # Disable Selenium detection
+        options.add_argument('--disable-blink-features=AutomationControlled')
+        
+        # Create randomized user agent
+        user_agent = UserAgent()
+        user_agent = user_agent.random
+        options.add_argument(f'user-agent={user_agent}')
+        
         self.browser = webdriver.Chrome(options=options)
         self.browser.get('https://www.indeed.com/')
         
